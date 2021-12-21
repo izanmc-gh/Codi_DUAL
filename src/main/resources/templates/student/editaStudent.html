@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
+<body>
+
+<div th:replace="myModals/myModals :: modalEditarStudent"></div>
+
+<div class="container my-4">
+
+    <div class="row">
+        <span class="col-6"><h3>Edita un Student</h3></span>
+    </div>
+
+    <form th:action="@{/Student/editaPreparaStudent}" method="post" th:object="${editaStudent}">
+        <div class="form-group">
+            <input th:field="*{idStudent}" name="idStudent" type="hidden" class="form-control" id="formGroupExampleInput1" placeholder="" th:value="${editaStudent.idStudent}">
+            <label for="formGroupExampleInput">Dni</label>
+            <input th:field="*{dni}" name="dni" type="text" class="form-control" id="formGroupExampleInput" placeholder="" th:value="${editaStudent.dni}" readonly>
+            <h6 class="text-danger" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></h6>
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Nom</label>
+            <input th:field="*{nom}" name="nom" type="text" class="form-control" id="formGroupExampleInput2" placeholder="" th:value="${editaStudent.nom}">
+            <h6 class="text-danger" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></h6>
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Cognom</label>
+            <input th:field="*{cognom}" name="cognom" type="text" class="form-control" id="formGroupExampleInput3" placeholder="" th:value="${editaStudent.cognom}">
+            <h6 class="text-danger" th:if="${#fields.hasErrors('cognom')}" th:errors="*{cognom}"></h6>
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Data Naixament</label>
+            <input th:field="*{dataNaix}" name="dataNaix" type="date" class="form-control" id="formGroupExampleInput4" placeholder="">
+            <h6 class="text-danger" th:if="${#fields.hasErrors('dataNaix')}" th:errors="*{dataNaix}"></h6>
+        </div>
+
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Mail</label>
+            <input th:field="*{mail}" name="mail" type="text" class="form-control" id="formGroupExampleInput5" placeholder="" th:value="${editaStudent.mail}">
+            <h6 class="text-danger" th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></h6>
+        </div>
+        <button type="submit" class="btn btn-success">Editar</button>
+        <span class="col-6"><a class="btn btn-success float-right" th:href="@{/Student/llistaStudent}">Enrere</a></span>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+<script th:inline="javascript">
+    var modalAttr = [[${modal}]];
+    if (modalAttr === "1") {
+        $('#modalEditarStudent').modal('show');
+    }
+</script>
+
+</body>
+</html>
