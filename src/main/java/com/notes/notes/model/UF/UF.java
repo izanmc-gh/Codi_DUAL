@@ -75,6 +75,14 @@ public class UF {
         this.idUF = idUF;
     }
 
+    public MP getMp() {
+        return mp;
+    }
+
+    public void setMp(MP mp) {
+        this.mp = mp;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

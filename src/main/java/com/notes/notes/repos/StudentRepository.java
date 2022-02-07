@@ -8,5 +8,7 @@ import java.util.List;
 
 @Repository
 public interface StudentRepository extends CrudRepository<Student, Integer> {
-    public List<Student> findAllBy();
+    public List<Student> findAllByIdStudent(String idStudent);
+
+
 }

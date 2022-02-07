@@ -3,10 +3,7 @@ package com.notes.notes.model.STUDENT;
 import com.notes.notes.model.MATR.Matr;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -38,8 +35,9 @@ public class Student {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Past(message = "La data no pot ser superior a la d'avui")
     private LocalDate dataNaix;
-
-    //private Matr matr;
+    //@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    //private Matr matr; <-- ha de ser una llista
+    //private int idMatrActual <-- si es 0 crea matricula sino edita i elimina
 
     public Student() {
     }

@@ -13,6 +13,8 @@
 </head>
 <body>
 
+<header th:replace="principal"></header>
+
 <div th:if="${msg}" class="alert alert-success alert-dismissible fade show" role="alert">
     <strong th:text="${msg}"></strong>
 </div>
@@ -34,12 +36,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="uf : ${oMP.llistaUFs}">
+            <tr th:each="uf : ${mp.llistaUFs}">
                 <td th:text="${uf.numUF}"></td>
                 <td th:text="${uf.nomUF}"></td>
                 <td th:text="${uf.horesUF}"></td>
-                <td><a class="btn btn-primary" th:href="@{/UF/editaUFView(uf1=${uf.numUF},mp=${oMP.numMP})}">Edita</a></td>
-                <td><a class="btn btn-danger" th:href="@{/UF/removeUFView(uf1=${uf.numUF},mp=${oMP.numMP})}">Elimina</a></td>
+                <td><a class="btn btn-primary" th:href="@{/UF/editaUFView(uf1=${uf.idUF})}">Edita</a></td>
+                <td><a class="btn btn-danger" th:href="@{/UF/removeUFView(uf1=${uf.idUF})}">Elimina</a></td>
             </tr>
             </tbody>
         </table>

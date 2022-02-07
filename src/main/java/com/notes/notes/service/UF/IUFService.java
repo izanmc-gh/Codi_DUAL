@@ -15,7 +15,6 @@ public interface IUFService {
 
     public boolean removeUF(UF uf);
 
-    public UF getUFByidUF(String idUF);
-
+    public UF getUFByidUF(int idUF);
 
 }

@@ -21,23 +21,25 @@
         <span class="col-6"><h3>Edita una UF</h3></span>
     </div>
 
-    <form th:action="@{/UF/editaPreparaUF}" method="post" th:object="${editaUF}">
+    <form th:action="@{/UF/editaPreparaUF}" method="post" th:object="${ufSel}">
+
         <div class="form-group">
             <label for="formGroupExampleInput">Numero UF</label>
-            <input th:field="*{numUF}" name="numUF" type="text" class="form-control" id="formGroupExampleInput" placeholder="" th:value="${editaUF.numUF}" readonly>
+            <input th:field="*{numUF}" name="numUF" type="text" class="form-control" id="formGroupExampleInput" placeholder="" th:value="${ufSel.numUF}">
             <h6 class="text-danger" th:if="${#fields.hasErrors('numUF')}" th:errors="*{numUF}"></h6>
         </div>
         <div class="form-group">
             <label for="formGroupExampleInput2">Nom UF</label>
-            <input th:field="*{nomUF}" name="nomUF" type="text" class="form-control" id="formGroupExampleInput2" placeholder="" th:value="${editaUF.nomUF}">
+            <input th:field="*{nomUF}" name="nomUF" type="text" class="form-control" id="formGroupExampleInput2" placeholder="" th:value="${ufSel.nomUF}">
             <h6 class="text-danger" th:if="${#fields.hasErrors('nomUF')}" th:errors="*{nomUF}"></h6>
         </div>
         <div class="form-group">
             <label for="formGroupExampleInput3">Hores UF</label>
-            <input th:field="*{horesUF}" name="horesUF" type="text" class="form-control" id="formGroupExampleInput3" placeholder="" th:value="${editaUF.horesUF}">
+            <input th:field="*{horesUF}" name="horesUF" type="text" class="form-control" id="formGroupExampleInput3" placeholder="" th:value="${ufSel.horesUF}">
             <h6 class="text-danger" th:if="${#fields.hasErrors('horesUF')}" th:errors="*{horesUF}"></h6>
         </div>
-        <input type="hidden" name="numMP" th:value="${mp.numMP}">
+        <input th:field="*{mp}" type="text" name="mp" th:value="${ufSel.getMp()}">
+        <input th:field="*{idUF}" th:value="${ufSel.getIdUF()}" type="hidden" name="idUF" class="form-control">
         <button type="submit" class="btn btn-success">Guarda</button>
         <span class="col-6"><a class="btn btn-success float-right" th:href="@{/UF/llistaUF}">Enrere</a></span>
     </form>

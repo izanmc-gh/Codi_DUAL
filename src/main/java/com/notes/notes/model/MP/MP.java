@@ -1,5 +1,6 @@
 package com.notes.notes.model.MP;
 
+import com.notes.notes.model.PLA.Pla;
 import com.notes.notes.model.UF.UF;
 
 import javax.persistence.*;
@@ -21,8 +22,10 @@ public class MP {
     @NotBlank(message = "El camp no es pot deixar en blanc")
     @Size(min = 1, max = 10, message = "El número de la MP ha de tenir entre 1 i 10 caracters")
     private String numMP;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "mp", cascade = CascadeType.ALL)
     private List<UF> llistaUFs;
+    @ManyToOne
+    private Pla pla;
 
     public MP() {
     }
@@ -122,7 +125,6 @@ public class MP {
                 "idMP=" + idMP +
                 ", nomMP='" + nomMP + '\'' +
                 ", numMP='" + numMP + '\'' +
-                ", llistaUFs=" + llistaUFs +
                 '}';
     }
 }

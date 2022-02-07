@@ -70,6 +70,75 @@
     </div>
 </div>
 
+<div th:fragment="modalGuardarPla" id="modalGuardarPla" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Crear Pla</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p th:text="|Segur que vols crear aquest Pla?|"></p>
+            </div>
+            <form th:object="${plaSel}" class="modal-footer" th:action="@{/Pla/guardaPla}">
+                <input th:field="*{nomPla}" type="hidden" name="nomPla" class="form-control">
+                <input th:field="*{anyPla}" type="hidden" name="anyPla" class="form-control">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancela</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="modalEditarPla" id="modalEditarPla" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Pla</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p th:text="|Segur que vols editar aquest Pla${editaPla.nomPla}?|"></p>
+            </div>
+            <form th:object="${editaPla}" class="modal-footer" th:action="@{/Pla/editaPla}">
+                <input th:field="*{nomPla}" type="hidden" name="nomPla" class="form-control">
+                <input th:field="*{anyPla}" type="hidden" name="anyPla" class="form-control">
+                <input th:field="*{idPla}" type="hidden" name="idPla" class="form-control">
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancela</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="modalRemovePla" id="modalRemovePla" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Eliminar Pla</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p th:text="|Segur que vols eliminar aquest Pla${plaSel.nomPla}?|"></p>
+            </div>
+            <form th:object="${plaSel}" class="modal-footer" th:action="@{/Pla/removePla(pla=${plaSel.idPla})}" method="post">
+                <input th:field="*{nomPla}" type="hidden" name="nomPla" class="form-control">
+                <input th:field="*{anyPla}" type="hidden" name="anyPla" class="form-control">
+                <input th:field="*{idPla}" type="hidden" name="idPla" class="form-control">
+                <button type="submit" class="btn btn-primary" >Elimina</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancela</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
 <div th:fragment="modalGuardarUF" id="modalGuardarUF" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -103,13 +172,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p th:text="|Segur que vols editar aquesta UF${editaUF.numUF} amb el nom de ${editaUF.nomUF} i amb aquestes hores ${editaUF.horesUF}?|"></p>
+                <p th:text="|Segur que vols editar aquesta UF${ufSel.numUF} amb el nom de ${ufSel.nomUF} i amb aquestes hores ${mp}?|"></p>
             </div>
-            <form th:object="${editaUF}" class="modal-footer" th:action="@{/UF/editaUF}">
+            <form th:object="${ufSel}" class="modal-footer" th:action="@{/UF/editaUF}">
+                <input th:field="*{idUF}" type="hidden" name="idUf" class="form-control">
                 <input th:field="*{numUF}" type="hidden" name="numUf" class="form-control">
                 <input th:field="*{nomUF}" type="hidden" name="nomUf" class="form-control">
                 <input th:field="*{horesUF}" type="hidden" name="horesUf" class="form-control">
-                <input type="hidden" name="numMP" th:value="${mp.numMP}">
+                <input type="hidden" name="mp" th:field="${ufSel.mp}"   class="form-control">
                 <button type="submit" class="btn btn-primary">Confirmar</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" th:href="@{/UF/llistaUF}">Cancela</button>
             </form>
@@ -127,12 +197,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p th:text="|Segur que vols eliminar aquesta UF${uf.numUF} ${uf.nomUF}?|"></p>
+                <p th:text="|Segur que vols eliminar aquesta UF${ufSel.numUF} ${ufSel.nomUF}?|"></p>
             </div>
-            <form th:object="${uf}" class="modal-footer" th:action="@{/UF/removeUF(uf1=${uf.numUF},mp=${oMP.numMP})}" method="post">
+            <form th:object="${ufSel}" class="modal-footer" th:action="@{/UF/removeUF}" method="post">
+                <input th:field="*{idUF}" type="hidden" name="idUf" class="form-control">
                 <input th:field="*{numUF}" type="hidden" name="numUf" class="form-control">
                 <input th:field="*{nomUF}" type="hidden" name="nomUf" class="form-control">
                 <input th:field="*{horesUF}" type="hidden" name="horesUf" class="form-control">
+                <input type="hidden" name="mp" th:field="${ufSel.mp}"   class="form-control">
                 <button type="submit" class="btn btn-primary" >Elimina</button>
                 <span class="col-6"><a class="btn btn-success float-right" th:href="@{/UF/llistaUF}">Cancela</a></span>
             </form>
@@ -203,7 +275,7 @@
             <div class="modal-body">
                 <p th:text="|Segur que vols eliminar aquest Student${studentSel.dni} ${studentSel.nom}?|"></p>
             </div>
-            <form th:object="${studentSel}" class="modal-footer" th:action="@{/Student/removeStudent(student=${studentSel.dni})}" method="post">
+            <form th:object="${studentSel}" class="modal-footer" th:action="@{/Student/removeStudent(student=${studentSel.idStudent})}" method="post">
                 <input th:field="*{dni}" type="hidden" name="dni" class="form-control">
                 <input th:field="*{nom}" type="hidden" name="nom" class="form-control">
                 <input th:field="*{cognom}" type="hidden" name="cognom" class="form-control">

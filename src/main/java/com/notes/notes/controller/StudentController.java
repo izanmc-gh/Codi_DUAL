@@ -40,7 +40,7 @@ public class StudentController {
         return "student/llistaStudent";
     }
 
-    // - Crear els MP
+    // - Crear els Students
 
     @GetMapping("/creaStudent")
     public String creaStudent(Model m, RedirectAttributes redirAttri, @ModelAttribute(name = "studentSel") Student studentSel, @ModelAttribute(name = "modal") String modalAttr) {

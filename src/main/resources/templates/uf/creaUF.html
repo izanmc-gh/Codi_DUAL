@@ -35,8 +35,7 @@
             <input th:field="*{horesUF}" name="horesUF" type="text" class="form-control" id="formGroupExampleInput3" placeholder="" th:value="${uf.horesUF}">
             <h6 class="text-danger" th:if="${#fields.hasErrors('horesUF')}" th:errors="*{horesUF}"></h6>
         </div>
-        <!--<input th:value="${numUF}" type="hidden" name="numUF" class="form-control">-->
-        <input th:value="${numMP}" type="hidden" name="numMP" class="form-control">
+        <input th:field="*{mp}" th:value="${uf.getMp().getIdMP()}" type="hidden" name="mp" class="form-control">
         <button type="submit" class="btn btn-success">Guarda</button>
         <span class="col-6"><a class="btn btn-success float-right" th:href="@{/MP/llistaMP}">Enrere</a></span>
     </form>

@@ -1,7 +1,9 @@
 package com.notes.notes.service.UF;
 
 import com.notes.notes.model.UF.UF;
+import com.notes.notes.model.MP.MP;
 import com.notes.notes.repos.UfRepository;
+import com.notes.notes.repos.MpRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,16 +12,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UFServiceImpl implements IUFService{
+public class UFServiceImpl implements IUFService {
 
     @Autowired
     UfRepository UFRepo;
-
-    private List<UF> llistaUFS;
-
-    public UFServiceImpl() {
-        llistaUFS = new ArrayList<>();
-    }
+    MpRepository MPRepo;
 
     @Override
     public List<UF> getAllUF() {
@@ -39,8 +36,8 @@ public class UFServiceImpl implements IUFService{
     }
 
     @Override
-    public UF getUFByidUF(String idUF) {
-        Optional<UF> ufOptional = UFRepo.findById(Integer.parseInt(idUF));
+    public UF getUFByidUF(int idUF) {
+        Optional<UF> ufOptional = UFRepo.findById(idUF);
         return ufOptional.orElse(null);
     }
 

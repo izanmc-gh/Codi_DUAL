@@ -27,21 +27,26 @@ public class UFController {
     // - Llista les UF
 
     @GetMapping("/llistaUF")
-    public String llistaUF(Model m, @ModelAttribute(name = "modal") String modalAttr, @ModelAttribute(name = "idMP") String idMP, @ModelAttribute(name = "uf1") String numUF) {
+    public String llistaUF(Model m, @ModelAttribute(name = "modal") String modalAttr,  @ModelAttribute(name = "ufSel") UF ufSel, @ModelAttribute("mp") MP mp, @ModelAttribute(name = "idMP") String idMP, @ModelAttribute(name = "uf1") String numUF) {
 
-        UF uf = new UF();
+        MP mp1;
 
-        MP mp = serviceMP.getMPByidMP(idMP);
-
-        m.addAttribute("oMP", mp);
-
-        if (!numUF.isEmpty()) {
-            uf = mp.getUFByNum(numUF);
+        if (ufSel.getIdUF()==0){
+            mp1 = serviceMP.getMPByidMP(String.valueOf(mp.getIdMP()));
+        }else {
+            mp1 = ufSel.getMp();
         }
 
-        m.addAttribute("uf", uf);
+        m.addAttribute("mp", mp1);
 
-        m.addAttribute("modal", modalAttr);
+        if (modalAttr != null){
+            m.addAttribute("modal", modalAttr);
+            m.addAttribute("ufSel", ufSel);
+        }else {
+            m.addAttribute("ufSel", new UF());
+        }
+
+        m.addAttribute("mp", serviceMP.getMPByidMP(idMP));
 
         return "uf/llistaUF";
     }
@@ -49,23 +54,28 @@ public class UFController {
     // - Crea les UF
 
     @GetMapping("/creaUF")
-    public String creaUF(HttpServletRequest request, Model m, RedirectAttributes redirAttri, @RequestParam(name = "idMP") String idMP, @ModelAttribute(name = "ufSel") UF ufSel, @ModelAttribute(name = "modal") String modalAttr) {
-        UF uf = new UF();
+    public String creaUF(Model m, @RequestParam(name = "idMP") String idMP, @ModelAttribute(name = "ufSel") UF ufSel, @ModelAttribute(name = "modal") String modalAttr) {
+
         MP mp = serviceMP.getMPByidMP(idMP);
+        UF uf = new UF();
+        uf.setMp(mp);
+        System.out.println( "AQUESTA ES LA MP: " +mp);
         m.addAttribute("uf", uf);
-        m.addAttribute("idMP", idMP);
 
         return "uf/creaUF";
     }
 
     @PostMapping("/guardaUF")
-    public String guardaUF(@ModelAttribute(name = "uf") @Valid UF uf, BindingResult bindingResult, RedirectAttributes redirAttri, @RequestParam(name = "idMP") String idMP) {
+    public String guardaUF(@ModelAttribute(name = "uf") @Valid UF uf, BindingResult bindingResult, RedirectAttributes redirAttri) {
+
+        System.out.println(uf);
 
         if (bindingResult.hasErrors()) {
             return "uf/creaUF";
         }else
-        if (serviceMP.addUFaMP(idMP, uf)) {
+        if (serviceUF.addUF(uf)) {
             redirAttri.addFlashAttribute("msg", "UF afegida correctament");
+            redirAttri.addFlashAttribute("mp", uf.getMp().getIdMP());
         }
 
         return "redirect:/MP/llistaMP";
@@ -76,18 +86,16 @@ public class UFController {
     @GetMapping("/editaUFView")
     public String editaUFFrom(Model m, @ModelAttribute(name = "ufSel") UF uf, @ModelAttribute(name = "mp") MP mp, @ModelAttribute(name = "modal") String modalAttr, RedirectAttributes redirAttri, HttpServletRequest request) {
 
-        String mp2 = request.getParameter("mp");
         String uf2 = request.getParameter("uf1");
 
         if (uf2 != null) {
-            MP mp1 = serviceMP.getMPByidMP(mp2);
-            UF uf1 = mp1.getUFByNum(uf2);
-            m.addAttribute("editaUF", uf1);
-            m.addAttribute("mp", mp1);
+            UF uf1 = serviceUF.getUFByidUF(Integer.parseInt(uf2));
+            System.out.println("Aquesta es la uf que recupero: "+uf1);
+            m.addAttribute("ufSel", uf1);
             m.addAttribute("modal", false);
         } else {
-            m.addAttribute("editaUF", uf);
-            m.addAttribute("mp", mp);
+            m.addAttribute("ufSel", uf);
+            System.out.println("Segona uf que recupero: "+uf);
             m.addAttribute("modal", modalAttr);
         }
 
@@ -97,26 +105,33 @@ public class UFController {
     @PostMapping("/editaPreparaUF")
     public String editaPreparaUF(@ModelAttribute UF uf, @ModelAttribute(name = "idMP") String idMP, Model m, RedirectAttributes redirAttrs) {
 
-        MP mp = serviceMP.getMPByidMP(idMP);
+        //MP mp = serviceMP.getMPByidMP(idMP);
         redirAttrs.addFlashAttribute("ufSel", uf);
-        redirAttrs.addFlashAttribute("mp", mp);
+        redirAttrs.addFlashAttribute("mp", uf.getMp());
+
+        System.out.println("UF recuperada del modal: " + uf);
+
+        //redirAttrs.addFlashAttribute("mp", mp);
         redirAttrs.addFlashAttribute("modal", "1");
 
         return "redirect:/UF/editaUFView";
     }
 
     @PostMapping("/editaUF")
-    public String editaUF(Model m, HttpServletRequest request, @ModelAttribute(name = "idMP") String idMP, @ModelAttribute(name = "editaUF") @Valid UF uf, BindingResult bindingResult, RedirectAttributes redirAttri) {
+    public String editaUF(Model m, HttpServletRequest request, @ModelAttribute(name = "idMP") String idMP, @ModelAttribute(name = "ufSel") UF uf, BindingResult bindingResult, RedirectAttributes redirAttri) {
 
-        MP mp = serviceMP.getMPByidMP(idMP);
-        //redirAttri.addFlashAttribute("mp", numMP);
+        uf.setMp(uf.getMp());
+
+        System.out.println("al guardar: "+uf);
 
         if (bindingResult.hasErrors()) {
-            m.addAttribute("oMP",mp);
             return "uf/editaUF";
-        }else
-        if (mp.editaUF(uf)) {
+        }
+
+
+        if (serviceUF.editaUF(uf)) {
             redirAttri.addFlashAttribute("msg", "UF editada correctament");
+            redirAttri.addFlashAttribute("mp", uf.getMp().getIdMP());
         }
 
         return "redirect:/UF/llistaUF";
@@ -125,14 +140,17 @@ public class UFController {
     // - Elimina les UF
 
     @GetMapping("/removeUFView")
-    public String removeUFView(Model m, RedirectAttributes redirAttrs, HttpServletRequest request) {
+    public String removeUFView(HttpServletRequest request, RedirectAttributes redirAttrs) {
 
-        String mp = request.getParameter("mp");
+        String uf2 = request.getParameter("uf1");
 
-        String uf = request.getParameter("uf1");
+        UF uf1 = serviceUF.getUFByidUF(Integer.parseInt(uf2));
 
-        redirAttrs.addFlashAttribute("uf1", uf);
-        redirAttrs.addFlashAttribute("mp", mp);
+        redirAttrs.addFlashAttribute("ufSel", uf1);
+        redirAttrs.addFlashAttribute("idMP", uf1.getMp().getIdMP());
+
+        System.out.println("UF recuperada del modal: " + uf1);
+
         redirAttrs.addFlashAttribute("modal", "1");
         System.out.println("Entra al modal");
 
@@ -140,22 +158,15 @@ public class UFController {
     }
 
     @PostMapping("/removeUF")
-    public String removeUF(Model m, RedirectAttributes redirAttri, HttpServletRequest request) {
+    public String removeUF(RedirectAttributes redirAttri, HttpServletRequest request) {
 
-        String mp = request.getParameter("mp");
+        String idUF = request.getParameter("idUF");
 
-        String uf = request.getParameter("uf1");
+        UF uf1 = serviceUF.getUFByidUF(Integer.parseInt(idUF));
 
-
-        MP mp1 = serviceMP.getMPByidMP(mp);
-
-
-        UF uf1 = mp1.getUFByNum(uf);
-
-        redirAttri.addFlashAttribute("mp", mp);
-
-        if (mp1.removeUFtoMP(uf1)) {
+        if (serviceUF.removeUF(uf1)) {
             redirAttri.addFlashAttribute("msg", "UF eliminada correctament");
+            redirAttri.addFlashAttribute("idMP", uf1.getMp().getIdMP());
         }
 
         return "redirect:/UF/llistaUF";

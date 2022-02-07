@@ -2,18 +2,19 @@ package com.notes.notes.model.MATR;
 import com.notes.notes.model.STUDENT.Student;
 import com.notes.notes.model.UF.UF;
 
-import java.time.LocalDateTime;
+import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Matr {
     private int idMatr;
     private List<UF> llistaUFs;
+    @OneToOne(mappedBy = "matr", fetch = FetchType.LAZY, optional = false)
     private Student student;
-    private LocalDateTime dataMatr;
+    private LocalDate dataMatr;
 
-    public Matr(Student student, LocalDateTime dataMatr) {
-        this.student = student;
-        this.dataMatr = dataMatr;
+    public Matr() {
     }
 
     public int getIdMatr() {
@@ -40,11 +41,11 @@ public class Matr {
         this.student = student;
     }
 
-    public LocalDateTime getDataMatr() {
+    public LocalDate getDataMatr() {
         return dataMatr;
     }
 
-    public void setDataMatr(LocalDateTime dataMatr) {
+    public void setDataMatr(LocalDate dataMatr) {
         this.dataMatr = dataMatr;
     }
 }

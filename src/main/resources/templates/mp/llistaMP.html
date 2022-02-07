@@ -40,11 +40,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="mp : ${llistaMP}">
+            <tr th:each="mp : ${pla.llistaMP}">
                 <th scope="row" th:text="${mp.numMP}"></th>
                 <th th:text="${mp.nomMP}"></th>
-                <td><a class="btn btn-success" th:href="@{/UF/creaUF(numMP=${mp.numMP})}">Afegeix</a></td>
-                <td><a class="btn btn-success" th:href="@{/UF/llistaUF(mp=${mp.numMP})}">UFs</a></td>
+                <td><a class="btn btn-success" th:href="@{/UF/creaUF(idMP=${mp.idMP})}">Afegeix</a></td>
+                <td><a class="btn btn-success" th:href="@{/UF/llistaUF(idMP=${mp.idMP})}">UFs</a></td>
                 <td><a class="btn btn-primary" th:href="@{/MP/editaMPView(idMP=${mp.idMP})}">Edita</a></td>
                 <td><a class="btn btn-danger" th:href="@{/MP/removeView(idMP=${mp.idMP})}">Elimina</a></td>
             </tr>
