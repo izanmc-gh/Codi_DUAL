@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
@@ -9,12 +9,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Student</title>
+    <title>Title</title>
 </head>
 <body>
-<!--<div th:if="${modal} == '1'" th:text="|Aquesta MP ha set eliminada ${mpSel.numMP} ${mpSel.nomMP}|"></div>-->
-
-<!--NAVBAR-->
 
 <header th:replace="principal"></header>
 
@@ -24,40 +21,35 @@
 
 <div class="container p-3">
     <div class="row">
-        <span class="col-6"><h3>Llista de Students</h3></span>
-        <span class="col-6"><a class="btn btn-success float-right" th:href="@{/Student/creaStudent}">Crea</a></span>
+        <span class="col-6"><h3>Llista d'expedients</h3></span>
+        <span class="col-6"><a class="btn btn-success float-right" th:href="@{/Exp/creaExp}">Crea</a></span>
+
     </div>
     <div class="row">
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Dni</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Cognom</th>
-                <th scope="col">Data Naix</th>
-                <th scope="col">Mail</th>
-                <th scope="col">Edit</th>
-                <th scope="col">Delete</th>
-                <th scope="col">Expedient</th>
+                <th scope="col">Pla</th>
+                <th scope="col">Data</th>
+                <th scope="col">Matricula</th>
+                <th scope="col">Opcions</th>
+                <th scope="col">Activació</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="student : ${llistaStudent}">
-                <th scope="row" th:text="${student.dni}"></th>
-                <th th:text="${student.nom}"></th>
-                <th th:text="${student.cognom}"></th>
-                <th th:text="${student.getDataNaixamentString()}"></th>
-                <th th:text="${student.mail}"></th>
-                <td><a class="btn btn-primary" th:href="@{/Student/editaStudentView(idStudent=${student.idStudent})}">Edita</a></td>
-                <td><a class="btn btn-danger" th:href="@{/Student/removeView(idStudent=${student.idStudent})}">Elimina</a></td>
-                <td><a class="btn btn-warning" th:href="@{/Exp/llistaExp(idStudent=${student.idStudent})}">Expedient</a></td>
+            <tr th:each="exp : ${llistaExp}">
+                <td th:text="${exp.pla}"></td>
+                <td th:text="${exp.dataExp}"></td>
+                <td th:text="${exp.numMatr}"></td>
+                <td><a class="btn btn-primary" th:href="${exp.llistaMatrs}">Matricula</a></td>
+                <td><a class="btn btn-danger" th:href="@{/Exp/removeExpView(idExp=${exp.idExp})}">Elimina</a></td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
 
-<div th:replace="myModals/myModals :: modalRemoveStudent"></div>
+<!--<div th:replace="myModals/myModals :: modalRemoveExp"></div>-->
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -72,7 +64,7 @@
 <script th:inline="javascript">
     var modalAttr = [[${modal}]];
     if (modalAttr === "1") {
-        $('#modalRemoveStudent').modal('show');
+        $('#modalRemoveExp').modal('show');
     }
 </script>
 

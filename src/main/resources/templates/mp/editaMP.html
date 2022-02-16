@@ -21,16 +21,17 @@
         <span class="col-6"><h3>Edita una MP</h3></span>
     </div>
 
-    <form th:action="@{/MP/editaPreparaMP}" method="post" th:object="${editaMP}">
+    <form th:action="@{/mp/editaPreparaMP}" method="post" th:object="${mpSel}">
         <div class="form-group">
-            <input th:field="*{idMP}" name="idMP" type="hidden" class="form-control" id="formGroupExampleInput1" placeholder="" th:value="${editaMP.idMP}">
+            <input th:field="*{idMP}" name="idMP" type="hidden" class="form-control" id="formGroupExampleInput1" placeholder="" th:value="${mpSel.idMP}">
+            <input type="text" name="idPla" th:value="${mpSel.pla.getIdPla()}">
             <label for="formGroupExampleInput">Numero MP</label>
-            <input th:field="*{numMP}" name="numMP" type="text" class="form-control" id="formGroupExampleInput" placeholder="" th:value="${editaMP.numMP}">
+            <input th:field="*{numMP}" name="numMP" type="text" class="form-control" id="formGroupExampleInput" placeholder="" th:value="${mpSel.numMP}">
             <h6 class="text-danger" th:if="${#fields.hasErrors('numMP')}" th:errors="*{numMP}"></h6>
         </div>
         <div class="form-group">
             <label for="formGroupExampleInput2">Nom MP</label>
-            <input th:field="*{nomMP}" name="nomMP" type="text" class="form-control" id="formGroupExampleInput2" placeholder="" th:value="${editaMP.nomMP}">
+            <input th:field="*{nomMP}" name="nomMP" type="text" class="form-control" id="formGroupExampleInput2" placeholder="" th:value="${mpSel.nomMP}">
             <h6 class="text-danger" th:if="${#fields.hasErrors('nomMP')}" th:errors="*{nomMP}"></h6>
         </div>
         <button type="submit" class="btn btn-success">Editar</button>

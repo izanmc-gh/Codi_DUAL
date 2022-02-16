@@ -71,10 +71,10 @@ public class PlaController {
     @GetMapping("/editaPlaView")
     public String editaPlaForm(HttpServletRequest request, Model m, @ModelAttribute(name = "plaSel") Pla pla, @ModelAttribute(name = "modal") String modalAttr){
 
-        String numPla = request.getParameter("idPla");
+        String idPla = request.getParameter("idPla");
 
-        if (numPla != null) {
-            Pla plaSeleccionat = servicePla.getPlaByidPla(Integer.parseInt(numPla));
+        if (idPla != null) {
+            Pla plaSeleccionat = servicePla.getPlaByidPla(idPla);
             m.addAttribute("editaPla",plaSeleccionat);
             m.addAttribute("modal",false);
         }else {
@@ -126,7 +126,7 @@ public class PlaController {
     @GetMapping("/removeView")
     public String removePlaView(Model m, @RequestParam(name = "idPla") String idPla, RedirectAttributes redirAttrs){
 
-        Pla pla = servicePla.getPlaByidPla(Integer.parseInt(idPla));
+        Pla pla = servicePla.getPlaByidPla(idPla);
 
         redirAttrs.addFlashAttribute("plaSel",pla);
         redirAttrs.addFlashAttribute("modal","1");

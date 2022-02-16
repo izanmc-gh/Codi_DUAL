@@ -44,7 +44,7 @@
                 <th scope="row" th:text="${pla.idPla}"></th>
                 <th th:text="${pla.nomPla}"></th>
                 <th th:text="${pla.anyPla}"></th>
-                <td><a class="btn btn-success" th:href="@{/MP/llistaMP(idPla=${pla.idPla})}">MPs</a></td>
+                <td><a class="btn btn-success" th:href="@{/mp/llistaMP(idPla=${pla.idPla})}">MPs</a></td>
                 <td><a class="btn btn-primary" th:href="@{/Pla/editaPlaView(idPla=${pla.idPla})}">Edita</a></td>
                 <td><a class="btn btn-danger" th:href="@{/Pla/removeView(idPla=${pla.idPla})}">Elimina</a></td>
             </tr>

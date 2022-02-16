@@ -30,6 +30,14 @@ public class MP {
     public MP() {
     }
 
+    public Pla getPla() {
+        return pla;
+    }
+
+    public void setPla(Pla pla) {
+        this.pla = pla;
+    }
+
     public MP(String numMP, String nomMP) {
         this.numMP = numMP;
         this.nomMP = nomMP;
@@ -39,6 +47,13 @@ public class MP {
         this.numMP = numMP;
         this.nomMP = nomMP;
         this.llistaUFs = llistaUFs;
+    }
+
+    public MP(int idMP, String nomMP, String numMP, Pla pla) {
+        this.idMP = idMP;
+        this.nomMP = nomMP;
+        this.numMP = numMP;
+        this.pla = pla;
     }
 
     public String getNumMP() {

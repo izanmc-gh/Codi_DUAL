@@ -1,7 +1,9 @@
 package com.notes.notes.model.PLA;
 
 import com.notes.notes.model.CURS.Curs;
+import com.notes.notes.model.MATR.Matr;
 import com.notes.notes.model.MP.MP;
+import com.notes.notes.model.EXP.Exp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -22,6 +24,8 @@ public class Pla {
     private String anyPla;
     @OneToMany (mappedBy = "pla", cascade = CascadeType.ALL)
     private List<MP> llistaMP;
+    @OneToMany (mappedBy = "pla", cascade = CascadeType.ALL)
+    private List<Exp> llistaExps;
 
     public Pla(String nomPla) {
         this.nomPla = nomPla;
@@ -61,6 +65,14 @@ public class Pla {
 
     public void setLlistaMP(List<MP> llistaMP) {
         this.llistaMP = llistaMP;
+    }
+
+    public List<Exp> getLlistaExps() {
+        return llistaExps;
+    }
+
+    public void setLlistaExps(List<Exp> llistaExps) {
+        this.llistaExps = llistaExps;
     }
 
     public Pla(int idPla, String nomPla, String anyPla) {

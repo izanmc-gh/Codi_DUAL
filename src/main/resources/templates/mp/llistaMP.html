@@ -25,7 +25,7 @@
 <div class="container p-3">
     <div class="row">
         <span class="col-6"><h3>Llista de MPs</h3></span>
-        <span class="col-6"><a class="btn btn-success float-right" th:href="@{/MP/creaMP}">Crea</a></span>
+        <span class="col-6"><a class="btn btn-success float-right" th:href="@{/mp/creaMP(idPla=${pla.idPla})}">Crea</a></span>
     </div>
     <div class="row">
         <table class="table">
@@ -45,8 +45,8 @@
                 <th th:text="${mp.nomMP}"></th>
                 <td><a class="btn btn-success" th:href="@{/UF/creaUF(idMP=${mp.idMP})}">Afegeix</a></td>
                 <td><a class="btn btn-success" th:href="@{/UF/llistaUF(idMP=${mp.idMP})}">UFs</a></td>
-                <td><a class="btn btn-primary" th:href="@{/MP/editaMPView(idMP=${mp.idMP})}">Edita</a></td>
-                <td><a class="btn btn-danger" th:href="@{/MP/removeView(idMP=${mp.idMP})}">Elimina</a></td>
+                <td><a class="btn btn-primary" th:href="@{/mp/editaMPView(idMP=${mp.idMP})}">Edita</a></td>
+                <td><a class="btn btn-danger" th:href="@{/mp/removeView(idMP=${mp.idMP})}">Elimina</a></td>
             </tr>
             </tbody>
         </table>

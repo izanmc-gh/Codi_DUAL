@@ -1,11 +1,13 @@
 package com.notes.notes.model.STUDENT;
 
+import com.notes.notes.model.EXP.Exp;
 import com.notes.notes.model.MATR.Matr;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 //MP -> UF -> STUDENT -> MATR -> CURS -> PLA
@@ -35,9 +37,8 @@ public class Student {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Past(message = "La data no pot ser superior a la d'avui")
     private LocalDate dataNaix;
-    //@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    //private Matr matr; <-- ha de ser una llista
-    //private int idMatrActual <-- si es 0 crea matricula sino edita i elimina
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<Exp> llistaExps;
 
     public Student() {
     }
@@ -96,6 +97,14 @@ public class Student {
 
     public void setIdStudent(int idStudent) {
         this.idStudent = idStudent;
+    }
+
+    public List<Exp> getLlistaExps() {
+        return llistaExps;
+    }
+
+    public void setLlistaExps(List<Exp> llistaExps) {
+        this.llistaExps = llistaExps;
     }
 
     @Override

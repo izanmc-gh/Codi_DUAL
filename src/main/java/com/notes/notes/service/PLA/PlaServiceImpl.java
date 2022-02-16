@@ -39,8 +39,8 @@ public class PlaServiceImpl implements IPlaService {
     }
 
     @Override
-    public Pla getPlaByidPla(int idPla) {
-        Optional<Pla> plaOptional = PlaRepo.findById(idPla);
+    public Pla getPlaByidPla(String idPla) {
+        Optional<Pla> plaOptional = PlaRepo.findById(Integer.valueOf(idPla));
         return plaOptional.orElse(null);
     }
 }

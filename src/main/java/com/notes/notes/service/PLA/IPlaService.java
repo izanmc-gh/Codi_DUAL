@@ -15,6 +15,6 @@ public interface IPlaService {
 
     public boolean removePla(Pla pla);
 
-    public Pla getPlaByidPla(int idPla);
+    public Pla getPlaByidPla(String idPla);
 
 }
