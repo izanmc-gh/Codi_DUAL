@@ -78,7 +78,7 @@ public class UFController {
             redirAttri.addFlashAttribute("mp", uf.getMp().getIdMP());
         }
 
-        return "redirect:/MP/llistaMP";
+        return "redirect:/mp/llistaMP";
     }
 
     // - Editar les UF

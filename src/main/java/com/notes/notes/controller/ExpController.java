@@ -40,7 +40,8 @@ public class ExpController {
     }
 
     @GetMapping("/creaExp")
-    public String creaExp(Model m, RedirectAttributes redirAttri, @ModelAttribute(name = "expSel") Exp expSel, @ModelAttribute(name = "modal") String modalAttr){
+    public String creaExp(HttpServletRequest request,Model m, RedirectAttributes redirAttri, @ModelAttribute(name = "expSel") Exp expSel, @ModelAttribute(name = "modal") String modalAttr){
+
         Exp exp = new Exp();
         m.addAttribute("creaExp",exp);
 
@@ -49,85 +50,7 @@ public class ExpController {
             redirAttri.addFlashAttribute("modal","1");
         }
 
-        return "exp/creaExp";
-    }
 
-    @PostMapping("/guardaExp")
-    public String guardaExp(@ModelAttribute(name = "creaExp") @Valid Exp exp, BindingResult bindingResult, RedirectAttributes redirAttri){
-
-        if (bindingResult.hasErrors()) {
-            return "exp/creaExp";
-        }else if(serviceExp.addExp(exp)){
-            redirAttri.addFlashAttribute("msg","Expedient afegit correctament");
-        }
-
-        return "redirect:/exp/llistaExp";
-    }
-
-    // - Editar l'expedient
-
-    @GetMapping("/editaExpView")
-    public String editaExpForm(HttpServletRequest request, Model m, @ModelAttribute(name = "expSel") Exp exp, @ModelAttribute(name = "modal") String modalAttr){
-
-        String idExp = request.getParameter("idExp");
-
-        if (idExp != null) {
-            Exp expSeleccionat = serviceExp.getExpByidExp(idExp);
-            m.addAttribute("editaExp",expSeleccionat);
-            m.addAttribute("modal",false);
-        }else {
-            m.addAttribute("editaExp",exp);
-            m.addAttribute("modal",modalAttr);
-        }
-
-        return "exp/editaExp";
-    }
-
-    @PostMapping("/editaPreparaExp")
-    public String editaPreparaExp(@ModelAttribute Exp exp, Model m, RedirectAttributes redirAttrs){
-
-        redirAttrs.addFlashAttribute("expSel",exp);
-        redirAttrs.addFlashAttribute("modal","1");
-
-        return "redirect:/Exp/editaExpView";
-    }
-
-    @PostMapping("/editaExp")
-    public String editaExp(Model m, @ModelAttribute(name = "editaExp") @Valid Exp exp, BindingResult bindingResult, RedirectAttributes redirAttri){
-
-        if (bindingResult.hasErrors()) {
-            return "exp/editaExp";
-        }else if(serviceExp.editaExp(exp)){
-            redirAttri.addFlashAttribute("msg","Expedient editat correctament");
-        }
-
-        return "redirect:/Exp/llistaExp";
-    }
-
-    // - Eliminar l'expedient
-
-    @PostMapping("/removeExp")
-    public String removeExp(HttpServletRequest request, RedirectAttributes redirAttri, Exp exp){
-
-        String idExp = request.getParameter("exp");
-
-        System.out.println("Exp: " + exp);
-
-        if(serviceExp.removeExp(exp)){
-            redirAttri.addFlashAttribute("msg", "Expedient eliminat correctament");
-        }
-
-        return "redirect:/Exp/llistaExp";
-    }
-
-    @GetMapping("/removeView")
-    public String removeExpView(Model m, @RequestParam(name = "idExp") String idExp, RedirectAttributes redirAttrs){
-
-        Exp exp = serviceExp.getExpByidExp(idExp);
-
-        redirAttrs.addFlashAttribute("expSel",exp);
-        redirAttrs.addFlashAttribute("modal","1");
-
-        return "redirect:/Exp/llistaExp";
+        return "exp/llistaExp";
     }
 }

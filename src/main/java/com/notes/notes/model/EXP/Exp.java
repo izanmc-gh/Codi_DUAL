@@ -7,6 +7,7 @@ import com.notes.notes.model.STUDENT.Student;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +18,8 @@ public class Exp {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int idExp;
     @NotBlank(message = "El camp no es pot deixar en blanc")
-    @Size(min = 2, max = 10, message = "La data de la MP ha de tenir entre 2 i 10 caracters")
-    private String dataExp;
+    @Size(min = 2, max = 10, message = "La data de l'Expedient' ha de tenir entre 2 i 10 caracters")
+    private LocalDate dataExp;
     @OneToMany(mappedBy = "exp", cascade = CascadeType.ALL)
     private List<Matr> llistaMatrs;
     private int numMatr = 0;
@@ -27,10 +28,11 @@ public class Exp {
     @ManyToOne
     private Student student;
 
-    public Exp(String dataExp, Pla pla) {
-        this.dataExp = dataExp;
+    public Exp(Pla pla, Student student) {
+        this.dataExp = LocalDate.now();
         this.llistaMatrs = new ArrayList<>();
         this.pla = pla;
+        this.student = student;
     }
 
     public Exp() {
@@ -61,11 +63,11 @@ public class Exp {
         this.idExp = idExp;
     }
 
-    public String getDataExp() {
+    public LocalDate getDataExp() {
         return dataExp;
     }
 
-    public void setDataExp(String dataExp) {
+    public void setDataExp(LocalDate dataExp) {
         this.dataExp = dataExp;
     }
 

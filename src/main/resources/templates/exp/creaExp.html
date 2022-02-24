@@ -22,8 +22,8 @@
     <form th:action="@{/Pla/guardaPla}" method="post" th:object="${creaPla}">
         <div class="form-group">
             <label for="formGroupExampleInput2">Nom Pla</label>
-            <input th:field="*{nomPla}" name="nomPla" type="text" class="form-control" id="formGroupExampleInput2" placeholder="" th:value="${creaPla.nomPla}">
-            <h6 class="text-danger" th:if="${#fields.hasErrors('nomPla')}" th:errors="*{nomPla}"></h6>
+            <input th:field="*{idPla}" name="idPla" type="text" class="form-control" id="formGroupExampleInput2" placeholder="" th:value="${creaPla.idPla}">
+            <h6 class="text-danger" th:if="${#fields.hasErrors('idPla')}" th:errors="*{idPla}"></h6>
         </div>
         <div class="form-group">
             <label for="formGroupExampleInput2">Any Pla</label>

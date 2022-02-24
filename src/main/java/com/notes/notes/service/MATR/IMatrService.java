@@ -3,7 +3,7 @@ package com.notes.notes.service.MATR;
 import com.notes.notes.model.MATR.Matr;
 
 import java.util.List;
-/*
+
 public interface IMatrService {
 
     public List<Matr> getAllMatr();
@@ -17,4 +17,3 @@ public interface IMatrService {
     public boolean editaMatr(Matr matr);
 
 }
-*/

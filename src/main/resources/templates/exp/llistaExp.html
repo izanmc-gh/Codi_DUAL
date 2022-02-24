@@ -41,8 +41,10 @@
                 <td th:text="${exp.pla}"></td>
                 <td th:text="${exp.dataExp}"></td>
                 <td th:text="${exp.numMatr}"></td>
-                <td><a class="btn btn-primary" th:href="${exp.llistaMatrs}">Matricula</a></td>
-                <td><a class="btn btn-danger" th:href="@{/Exp/removeExpView(idExp=${exp.idExp})}">Elimina</a></td>
+                <td>
+                    <a class="btn btn-primary" th:href="${exp.llistaMatrs}">Matricula</a>
+                    <a class="btn btn-danger" th:href="@{/Exp/removeExpView(idExp=${exp.idExp})}">Elimina</a>
+                </td>
             </tr>
             </tbody>
         </table>
